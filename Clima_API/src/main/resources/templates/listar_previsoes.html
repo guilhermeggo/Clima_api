@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Clima Spring Boot- Guilherme Godinho</title>
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}"
+	rel="stylesheet" />
+</head>
+<body>
+	<div class="panel panel-default" style="margin: 10px">
+		<div class="panel-heading">
+			<h1 class="panel-title">Clima</h1>
+			<a href="/buscarPrev/cidade/1">carregar online- Minas Gerais</a> ||
+			<a href="/buscarPrev/cidade/2">carregar online- Goias</a> ||
+			<a href="/buscarPrev/cidade/3">carregar online- Cotia</a> ||
+			<a href="/buscarPrev/cidade/4">carregar online- Itaqua</a>
+		</div>
+		<hr>
+		<div class="panel-heading">
+			<h1 class="panel-title">Localizacao</h1>
+			<a href="/buscarPrev/localizacao/-19.81/-43.95">Minas Gerais</a> ||
+			<a href="/buscarPrev/localizacao/-16.67/-49.25">Goias</a> ||
+			<a href="/buscarPrev/localizacao/-23.60/-46.92">Cotia</a> ||
+			<a href="/buscarPrev/localizacao/-23.48/-46.34">Itaqua</a>
+		</div>
+		<hr>
+		<div class="panel-heading">
+			<h1 class="panel-title">Nome</h1>
+			<a href="/buscarPrev/nome/Sao Paulo">Minas Gerais</a> ||
+			<a href="/buscarPrev/nome/Rio de Janeiro">Goias</a> ||
+			<a href="/buscarPrev/nome/Osasco">Cotia</a> ||
+			<a href="/buscarPrev/nome/Arraial do Cabo">Itaqua</a>
+		</div>
+		<hr>
+		<div class="panel-heading">
+			<h1 class="panel-title">Nome(Ignorando Maiusculo)</h1>
+			<a href="/buscarPrev/letra/sao Paulo">Minas Gerais</a> ||
+			<a href="/buscarPrev/letra/rio de Janeiro">Goias</a>||
+			<a href="/buscarPrev/letra/osasco">Cotia</a> ||
+			<a href="/buscarPrev/letra/arraial do Cabo">Itaqua</a>			
+		</div>
+		
+		<!-- 
+			Executar de forma assíncrona:
+				1. Buscar cidade por latitude e longitude.
+				2. Buscar cidade pelo seu nome.
+				3. Buscar cidades pelo seu nome, ignorando letras maiúsculas. 
+		-->
+
+		<div class="panel-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Cidade</th>
+						<th>Latitude</th>
+						<th>Longitude</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cidade : ${cidades}">
+						<td th:text="${cidade.nome}"></td>
+						<td th:text="${cidade.latitude}"></td>
+						<td th:text="${cidade.longitude}"></td>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Semana</th>
+									<th>Data</th>
+									<th>Mínima</th>
+									<th>Máxima</th>
+									<th>Umidade</th>
+									<th>Descrição</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="clima : ${cidade.climas}">
+									<td th:text="${clima.semana.dia}"></td>
+									<td th:text="${clima.dataHora}"></td>
+									<td th:text="${clima.tempMin}"></td>
+									<td th:text="${clima.tempMax}"></td>
+									<td th:text="${clima.umidade}"></td>
+									<td th:text="${clima.descricao}"></td>
+									<td><img src="" th:src="${clima.icone}" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<footer>
+  	<p>Feito por:&copy; Guilherme Godinho</p>
+</footer>
+</body>
+</html>
